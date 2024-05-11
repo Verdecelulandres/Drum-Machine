@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 function App() {
@@ -45,48 +45,60 @@ const keyAudio = [
   }
 ];
 
+// Initializes the pads, pushing them to a JSX object array. each pad comes with audio elements that trigger 2 functions when clicked or the correct key is pressed
 function getDrumPads (audioSrc) {
   var out = [];
   for(let i = 0; i< audioSrc.length; i++){
     const { key, audio, audioDescription } = audioSrc[i];
     out.push( 
-      <button className='drum-pad' id={audioDescription} onKeyUp={(event)=> {handlekeyPress(event); setDisplay(audioDescription)}} onClick={()=> {playSound(key); setDisplay(audioDescription)}}><b>{key}</b><audio src={audio} className='clip' id={key}></audio>
+      <button className='drum-pad' id={audioDescription} onKeyUp={(event)=> {handlekeyPress(event)}} onClick={()=> {playSound(key); setDisplay(audioDescription)}}><b>{key}</b><audio src={audio} className='clip' id={key}></audio>
       </button>);
   }
   return out;
 }
-function handlekeyPress(e){
-  switch(e.keyCode){
-    case 81:
+
+//Identifies the correct key on the keyUp event. Then plays the correct sound and sets the display
+function handlekeyPress(e) {
+  switch (e.key) {
+    case 'q':
       playSound('Q');
+      setDisplay('Heater 1');
       break;
-    case 87:  
-    playSound('W');
-    break;
-    case 69:
+    case 'w':
+      playSound('W');
+      setDisplay('Heater 2');
+      break;
+    case 'e':
       playSound('E');
+      setDisplay('Heater 3');
       break;
-    case 65:
+    case 'a':
       playSound('A');
-      break; 
-    case 83:
+      setDisplay('Heater 4');
+      break;
+    case 's':
       playSound('S');
+      setDisplay('Clap');
       break;
-    case 68:
+    case 'd':
       playSound('D');
+      setDisplay('Open HH');
       break;
-    case 90:
+    case 'z':
       playSound('Z');
+      setDisplay('Kick-n\'Hat');
       break;
-    case 88:
+    case 'x':
       playSound('X');
+      setDisplay('Kick');
       break;
-    case 67:
+    case 'c':
       playSound('C');
+      setDisplay('Closed HH');
       break;
     default:
-      console.log("That is not a valid key");
-      break;      
+      console.log('That is not a valid key');
+      break;
   }
 }
 
@@ -95,9 +107,14 @@ function playSound(key) {
   sound.play();
 }
 const[display, setDisplay] = useState('Click or push the key you want to hear');
+
+useEffect(() => {
+  // Set focus to the component when it mounts
+  document.getElementById('drum-machine').focus();
+}, []);
   return (
     <div className="App container-fluid">
-      <div  id='drum-machine'>
+      <div  id='drum-machine' tabIndex={1}> 
         <div className='pad-container'>
           {getDrumPads(keyAudio)}
         </div>
