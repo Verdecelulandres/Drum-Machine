@@ -1,5 +1,9 @@
 import React from 'react';
 import './App.css';
+import { useState } from 'react';
+
+
+function App() {
 
 //Key-audio bank that stores the audio src and it's description.
 const keyAudio = [
@@ -16,7 +20,7 @@ const keyAudio = [
     audioDescription: 'Heater 3'
   },
   { key: 'A',
-    audio: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-4.mp3',
+    audio: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3',
     audioDescription: 'Heater 4'
   },
   { key: 'S',
@@ -41,31 +45,29 @@ const keyAudio = [
   }
 ];
 
-function getThreeDrumPads (audioSrc) {
-  let out = [];
-  for(let i = 0; i< 3; i++){
+function getDrumPads (audioSrc) {
+  var out = [];
+  for(let i = 0; i< audioSrc.length; i++){
     const { key, audio, audioDescription } = audioSrc[i];
-    out.push( <div className='col-4'>
-      <button className='drum-pad' id={audioDescription}>{key}<audio src={audio} className='clip' id={key}></audio></button>
-    </div>);
+    out.push( 
+      <button className='drum-pad' id={audioDescription}onClick={()=> {playSound(key); setDisplay(audioDescription)}}><b>{key}</b><audio src={audio} className='clip' id={key}></audio>
+      </button>);
   }
   return out;
 }
 
-function App() {
+function playSound(key) {
+  let sound = document.getElementById(key);
+  sound.play();
+}
+const[display, setDisplay] = useState('Click or push the key you want to hear');
   return (
     <div className="App container-fluid">
-      <div className='row' id='drum-machine'>
-        <div className='row'>
-          {getThreeDrumPads(keyAudio.slice(0,3))}
+      <div  id='drum-machine'>
+        <div className='pad-container'>
+          {getDrumPads(keyAudio)}
         </div>
-        <div className='row'>
-          {getThreeDrumPads(keyAudio.slice(3,6))}
-        </div>
-        <div className='row'>
-          {getThreeDrumPads(keyAudio.slice(6,9))}
-        </div>
-        <div id='display'></div>
+        <div id='display'>{display}</div>
       </div>
     </div>
   );
