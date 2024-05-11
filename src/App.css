@@ -15,6 +15,7 @@
   height: 340px;
   border: 3px ridge black; 
   gap: 10px;
+  padding: 5px 0;
 }
 .drum-pad{
   border: 2px groove black;
@@ -22,11 +23,13 @@
   height: 100px;
 }
 #display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 3px ridge black;
   width: 350px;
   height: 150px;
   font-family: monospace;
   text-align: center;
-  padding-top: 40px;
-  font-size: 40px;;
+  font-size: 20px;;
 }

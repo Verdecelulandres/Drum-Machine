@@ -50,10 +50,44 @@ function getDrumPads (audioSrc) {
   for(let i = 0; i< audioSrc.length; i++){
     const { key, audio, audioDescription } = audioSrc[i];
     out.push( 
-      <button className='drum-pad' id={audioDescription}onClick={()=> {playSound(key); setDisplay(audioDescription)}}><b>{key}</b><audio src={audio} className='clip' id={key}></audio>
+      <button className='drum-pad' id={audioDescription} onKeyUp={(event)=> {handlekeyPress(event); setDisplay(audioDescription)}} onClick={()=> {playSound(key); setDisplay(audioDescription)}}><b>{key}</b><audio src={audio} className='clip' id={key}></audio>
       </button>);
   }
   return out;
+}
+function handlekeyPress(e){
+  switch(e.keyCode){
+    case 81:
+      playSound('Q');
+      break;
+    case 87:  
+    playSound('W');
+    break;
+    case 69:
+      playSound('E');
+      break;
+    case 65:
+      playSound('A');
+      break; 
+    case 83:
+      playSound('S');
+      break;
+    case 68:
+      playSound('D');
+      break;
+    case 90:
+      playSound('Z');
+      break;
+    case 88:
+      playSound('X');
+      break;
+    case 67:
+      playSound('C');
+      break;
+    default:
+      console.log("That is not a valid key");
+      break;      
+  }
 }
 
 function playSound(key) {
