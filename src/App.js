@@ -5,6 +5,13 @@ import { useState, useEffect } from 'react';
 
 function App() {
 
+  useEffect(() => {
+    document.addEventListener('keydown', e => {
+      handlekeyPress(e.key);
+    });
+  
+  }, []);
+
 //Key-audio bank that stores the audio src and it's description.
 const keyAudio = [
   { key: 'Q',
@@ -59,7 +66,7 @@ function getDrumPads (audioSrc) {
 
 //Identifies the correct key on the keyUp event. Then plays the correct sound and sets the display
 function handlekeyPress(e) {
-  switch (e.key) {
+  switch (e) {
     case 'q':
       playSound('Q');
       setDisplay('Heater 1');
@@ -108,18 +115,16 @@ function playSound(key) {
 }
 const[display, setDisplay] = useState('Click or push the key you want to hear');
 
-useEffect(() => {
-  // Set focus to the component when it mounts
-  document.getElementById('drum-machine').focus();
 
-}, []);
   return (
     <div className="App container-fluid">
       <div  id='drum-machine' tabIndex={1}> 
         <div className='pad-container'>
           {getDrumPads(keyAudio)}
         </div>
-        <div id='display'>{display}</div>
+        <div className='display-container'>
+          <div id='display'>{display}</div>
+        </div>  
       </div>
     </div>
   );

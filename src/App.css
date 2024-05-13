@@ -22,14 +22,26 @@
   width: 100px;
   height: 100px;
 }
-#display {
+.display-container {
   display: flex;
   justify-content: center;
   align-items: center;
   border: 3px ridge black;
   width: 350px;
   height: 150px;
+  font-size: 20px;
+  background-color: rgb(6, 47, 122);
+}
+#display {
+  border: 5px groove black;
+  background-color: azure;
+  width: 300px;
+  height: 100px;
   font-family: monospace;
   text-align: center;
-  font-size: 20px;;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
