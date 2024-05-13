@@ -51,7 +51,7 @@ function getDrumPads (audioSrc) {
   for(let i = 0; i< audioSrc.length; i++){
     const { key, audio, audioDescription } = audioSrc[i];
     out.push( 
-      <button className='drum-pad' id={audioDescription} onKeyUp={(event)=> {handlekeyPress(event)}} onClick={()=> {playSound(key); setDisplay(audioDescription)}}><b>{key}</b><audio src={audio} className='clip' id={key}></audio>
+      <button className='drum-pad' id={audioDescription} onClick={()=> {playSound(key); setDisplay(audioDescription)}}><b>{key}</b><audio src={audio} className='clip' id={key}></audio>
       </button>);
   }
   return out;
@@ -111,6 +111,7 @@ const[display, setDisplay] = useState('Click or push the key you want to hear');
 useEffect(() => {
   // Set focus to the component when it mounts
   document.getElementById('drum-machine').focus();
+
 }, []);
   return (
     <div className="App container-fluid">
